@@ -1,0 +1,35 @@
+class QuickSort {
+    
+    func quickSort(_ arr:inout[Int], _ lb: Int, _ ub: Int) {
+        if lb < ub {
+            let loc = partion(&arr,lb,ub)
+            quickSort(&arr,lb,loc-1)
+            quickSort(&arr,loc+1,ub)
+        }
+    }
+    
+    func partion(_ arr:inout[Int], _ lb: Int, _ ub: Int) -> Int {
+        var s = lb
+        var e = ub
+        let p = arr[lb]
+        while s < e {
+            while s < arr.count && arr[s] <= p {
+                s += 1
+            }
+            while e >= 0 && arr[e] > p {
+                e -= 1
+            }
+            
+            if s < e {
+                let t = arr[s]
+                arr[s] = arr[e]
+                arr[e] = t
+            }
+        }
+
+        let t = arr[lb]
+        arr[lb] = arr[e]
+        arr[e] = t
+        return e
+    }
+}
