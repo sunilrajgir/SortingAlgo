@@ -1,0 +1,84 @@
+class Solution {
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        var arr = [70,50,40,45,35,39,16,10,9,60,-9,-30,49]
+        let s = HeapSort()
+        // s.heapSort(&arr)
+        s.heaps(&arr)
+        print(arr)
+        return [0,1]
+    }
+}
+
+class HeapSort {
+    
+    func heapSort(_ arr:inout[Int]) {
+        var i = arr.count/2-1
+        while i >= 0 {
+            heapify(&arr,arr.count-1,i)
+            i -= 1
+        }
+        i = arr.count-1
+        while i > 0 {
+            let t = arr[0]
+            arr[0] = arr[i]
+            arr[i] = t
+            heapify(&arr,i-1,0)
+            i -= 1
+        }
+    }
+    
+    func heapify(_ arr:inout[Int], _ size:Int, _ i: Int) {
+        let left = 2*i+1
+        let right = 2*i+2
+        var largest = i
+        if left <= size && arr[left] > arr[largest] {
+            largest = left
+        }
+        
+        if right <= size && arr[right] > arr[largest] {
+            largest = right
+        }
+        
+        if largest != i {
+            let t = arr[largest]
+            arr[largest] = arr[i]
+            arr[i] = t
+            heapify(&arr,size,largest)
+        }
+    }
+    
+    func heaps(_ arr: inout[Int]) {
+        var i = arr.count-1
+        while i >= 0 {
+            makeMaxHeap(&arr,i,arr.count-1)
+            i -= 1
+        }
+        i = arr.count-1
+        while i > 0 {
+            let t = arr[0]
+            arr[0] = arr[i]
+            arr[i] = t
+            makeMaxHeap(&arr,0,i-1)
+            i -= 1
+        }
+    }
+    
+    func makeMaxHeap(_ arr: inout[Int], _ i: Int, _ size: Int) {
+        let left = 2*i+1
+        let right = 2*i+2
+        var largest = i
+        if left <= size && arr[left] > arr[largest] {
+            largest = left
+        }
+        if right <= size && arr[right] > arr[largest] {
+            largest = right
+        }
+        
+        if largest != i {
+            let t = arr[largest]
+            arr[largest] = arr[i]
+            arr[i] = t
+            makeMaxHeap(&arr,largest,size)
+        }
+    }
+}
