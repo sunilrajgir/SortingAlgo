@@ -1,0 +1,45 @@
+class MergeSort {
+    func mergeSort(_ arr:inout[Int], _ lb:Int, _ ub:Int) {
+        if lb < ub {
+            let mid = (lb+ub)/2 
+            mergeSort(&arr,lb,mid)
+            mergeSort(&arr,mid+1,ub)
+            merge(&arr,lb,mid,ub)
+        }
+    }
+    
+    func merge(_ arr:inout[Int], _ lb:Int, _ mid: Int, _ ub:Int) {
+        var i = lb
+        var j = mid+1
+        var ma = arr
+        var k = lb
+        while i <= mid && j <= ub {
+            if arr[i] < arr[j] {
+                ma[k] = arr[i]
+                i += 1
+            } else {
+                ma[k] = arr[j]
+                j += 1
+            }
+            k += 1
+        }
+        
+        if i > mid {
+            while j <= ub {
+                ma[k] = arr[j]
+                j += 1
+                k += 1
+            }
+        } else {
+            while i <= mid {
+                ma[k] = arr[i]
+                i += 1
+                k += 1
+            }
+        }
+        
+        for (index,item) in ma.enumerated() {
+            arr[index] = item
+        }
+    }
+}
